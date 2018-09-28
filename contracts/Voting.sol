@@ -28,9 +28,10 @@ contract Voting {
     candidateList = _candidateNames;
   }
 
-  function buyTokens(uint _quantity) public payable
+  function buyTokens() public payable
   {
-    require((msg.value >= (tokenPrice * _quantity)) && (_quantity <= balanceTokens));
+    uint _quantity = msg.value/tokenPrice;
+    require(_quantity <= balanceTokens);
     voterInfo[msg.sender].voterAddress = msg.sender;
     voterInfo[msg.sender].tokensBought+=_quantity;
     balanceTokens-=_quantity;
